@@ -1,21 +1,21 @@
-# 时间小偷猎人 Time Thief Hunter
+# Time Thief Hunter
 
-> 一个运行在本地的 AI Agent，通过 Screenpipe 监控你的屏幕活动，发现摸鱼就弹窗警告，还能跟你谈判。
+> A local AI agent that monitors your screen activity via Screenpipe, catches you procrastinating, and pops up a warning — with an AI you can negotiate with.
 
-## 它能干什么
+## What It Does
 
-- **实时监控** — 每 30 秒通过 Screenpipe 检测你当前在用什么应用
-- **摸鱼检测** — 发现你在刷 YouTube / Bilibili / Reddit / Twitter 等就触发警告
-- **弹窗警告** — 暗黑监控风格的桌面弹窗，无法忽视
-- **AI 谈判** — 点「求情」可以跟 Claude AI 谈判，但它很毒舌，你得拿出交换条件
+- **Real-time monitoring** — Checks your active app every 30 seconds via Screenpipe
+- **Distraction detection** — Triggers when you're on YouTube / Bilibili / Reddit / Twitter / Steam etc.
+- **Desktop popup** — Dark surveillance-themed alert you can't ignore
+- **AI negotiation** — Click "Plead" to negotiate with a Claude-powered AI that's sarcastic, strict, but open to deals
 
-## 前置要求
+## Prerequisites
 
 - Python >= 3.9
-- [Screenpipe](https://github.com/mediar-ai/screenpipe) 运行中（本地 `localhost:3030`）
-- Anthropic API Key（设置环境变量 `ANTHROPIC_API_KEY`）
+- [Screenpipe](https://github.com/mediar-ai/screenpipe) running locally (`localhost:3030`)
+- Anthropic API key (set `ANTHROPIC_API_KEY` environment variable)
 
-## 安装
+## Install
 
 ```bash
 git clone https://github.com/DHCFE/project.git
@@ -23,68 +23,68 @@ cd project
 pip install .
 ```
 
-或者开发模式：
+For development:
 
 ```bash
 pip install -e .
 ```
 
-## 使用
+## Usage
 
 ```bash
-# 启动监控
+# Start monitoring
 time-thief-hunter
 
-# 测试弹窗效果（不需要真的摸鱼）
+# Test the popup (no actual procrastination needed)
 time-thief-hunter --test
 
-# 或者直接用 Python 运行
+# Or run directly with Python
 python -m time_thief_hunter
 python -m time_thief_hunter --test
 ```
 
-## 配置
+## Configuration
 
-编辑 `time_thief_hunter/config.py`：
+Edit `time_thief_hunter/config.py`:
 
 ```python
-CHECK_INTERVAL = 30          # 检查间隔（秒）
-LOOKBACK_MINUTES = 5         # 查看最近几分钟的活动
-DISTRACTION_THRESHOLD = 3    # 命中几帧才触发警告
+CHECK_INTERVAL = 30          # Check interval (seconds)
+LOOKBACK_MINUTES = 5         # How many minutes of activity to analyze
+DISTRACTION_THRESHOLD = 3    # Minimum OCR frame hits to trigger warning
 
-DISTRACTION_APPS = [         # 分心应用列表
+DISTRACTION_APPS = [         # Apps considered distractions
     "YouTube", "Twitter", "Reddit", "Steam", ...
 ]
 ```
 
-## 项目结构
+## Project Structure
 
 ```
 time_thief_hunter/
-├── main.py               # 入口 + 监控循环
-├── popup.py              # pywebview 弹窗 (HTML/CSS/JS)
-├── brain.py              # Claude AI 谈判大脑
-├── screenpipe_client.py  # Screenpipe REST API 客户端
-└── config.py             # 配置
+├── main.py               # Entry point + monitoring loop
+├── popup.py              # pywebview popup (HTML/CSS/JS)
+├── brain.py              # Claude AI negotiation brain
+├── screenpipe_client.py  # Screenpipe REST API client
+└── config.py             # Configuration
 ```
 
-## 工作原理
+## How It Works
 
 ```
-Screenpipe (屏幕录制 + OCR)
+Screenpipe (screen capture + OCR)
     ↓ REST API
-监控循环 (每30秒查一次)
-    ↓ 规则匹配
-摸鱼检测 → 弹窗警告
-              ↓ 用户点「求情」
-          Claude AI 谈判
+Monitoring loop (every 30s)
+    ↓ Rule matching
+Distraction detected → Popup warning
+                         ↓ User clicks "Plead"
+                     Claude AI negotiation
 ```
 
-## 隐私
+## Privacy
 
-- 所有数据只通过本地 Screenpipe 获取，不上传任何屏幕内容
-- AI 谈判时只发送应用名和摸鱼时长给 Claude API，不发送屏幕截图
-- 你的屏幕内容永远不会离开你的电脑
+- All screen data is read from local Screenpipe only — nothing is uploaded
+- During AI negotiation, only the app name and duration are sent to Claude API — no screenshots
+- Your screen content never leaves your machine
 
 ## License
 
