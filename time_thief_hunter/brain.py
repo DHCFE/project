@@ -1,7 +1,7 @@
 """AI 谈判大脑 - Claude API"""
 
 import anthropic
-from config import CLAUDE_MODEL
+from time_thief_hunter.config import CLAUDE_MODEL
 
 
 class AgentBrain:

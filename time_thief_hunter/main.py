@@ -2,13 +2,13 @@
 
 import sys
 import time
-from config import (
+from time_thief_hunter.config import (
     CHECK_INTERVAL, LOOKBACK_MINUTES,
     DISTRACTION_APPS, DISTRACTION_KEYWORDS, DISTRACTION_THRESHOLD,
 )
-from screenpipe_client import ScreenpipeClient
-from brain import AgentBrain
-from popup import PopupManager
+from time_thief_hunter.screenpipe_client import ScreenpipeClient
+from time_thief_hunter.brain import AgentBrain
+from time_thief_hunter.popup import PopupManager
 
 
 def detect_distraction(activity_data):

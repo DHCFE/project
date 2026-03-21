@@ -1,0 +1,32 @@
+[build-system]
+requires = ["setuptools>=68.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "time-thief-hunter"
+version = "0.1.0"
+description = "Screenpipe + Claude AI 生产力监控 Agent — 抓住偷走你时间的小偷"
+readme = "README.md"
+license = "MIT"
+requires-python = ">=3.9"
+authors = [{ name = "DHCFE" }]
+keywords = ["productivity", "screenpipe", "ai-agent", "claude", "focus"]
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Environment :: MacOS X",
+    "Intended Audience :: End Users/Desktop",
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: 3",
+    "Topic :: Office/Business",
+]
+dependencies = [
+    "anthropic>=0.40.0",
+    "pywebview>=5.0",
+]
+
+[project.scripts]
+time-thief-hunter = "time_thief_hunter.main:main"
+
+[project.urls]
+Homepage = "https://github.com/DHCFE/project"
+Issues = "https://github.com/DHCFE/project/issues"
