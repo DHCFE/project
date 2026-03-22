@@ -1,14 +1,17 @@
-"""Screenpipe REST API 客户端"""
+"""Screenpipe REST API client."""
 
 import urllib.request
 import urllib.parse
 import json
 from datetime import datetime, timedelta, timezone
 
+from time_thief_hunter.config import SCREENPIPE_REQUEST_TIMEOUT_SECONDS, SCREENPIPE_URL
+
 
 class ScreenpipeClient:
-    def __init__(self, base_url="http://localhost:3030"):
+    def __init__(self, base_url=SCREENPIPE_URL):
         self.base_url = base_url
+        self._last_error = None
 
     def get_recent_activity(self, minutes=5):
         now = datetime.now(timezone.utc)
@@ -24,9 +27,13 @@ class ScreenpipeClient:
 
         try:
             url = f"{self.base_url}/search?{params}"
-            with urllib.request.urlopen(url, timeout=5) as resp:
+            with urllib.request.urlopen(url, timeout=SCREENPIPE_REQUEST_TIMEOUT_SECONDS) as resp:
                 data = json.loads(resp.read())
+                self._last_error = None
                 return data.get("data", [])
         except Exception as e:
-            print(f"[screenpipe] 连接失败: {e}")
+            message = str(e)
+            if message != self._last_error:
+                print(f"[screenpipe] connection failed: {e}")
+                self._last_error = message
             return []

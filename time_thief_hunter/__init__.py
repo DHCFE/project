@@ -1,3 +1,3 @@
-"""时间小偷猎人 - Screenpipe + Claude AI 生产力监控 Agent"""
+"""Time Thief Hunter - productivity monitoring agent."""
 
-__version__ = "0.1.0"
+__version__ = "0.4.0"
